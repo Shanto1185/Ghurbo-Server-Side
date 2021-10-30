@@ -25,7 +25,7 @@ async function run() {
         // const destinationCollection = database.collection('destination');
 
         //GET API
-        app.get('/services', async (req, res) => {
+        app.get('/service', async (req, res) => {
             const cursor = offerCollection.find({});
             const offers = await cursor.toArray();
             res.send(offers);
@@ -39,7 +39,7 @@ async function run() {
         // });
 
         //Single Details
-        app.get('/services/:id', async (req, res) => {
+        app.get('/service/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id);
             const query = { _id: ObjectId(id) };

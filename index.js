@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); 6
 const { MongoClient } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config()
@@ -46,6 +46,9 @@ async function run() {
             const offers = await offerCollection.findOne(query)
             res.json(offers)
         })
+        // app.post('/service',async(req,res)={
+
+        // })
     }
     finally {
         // await client.close();

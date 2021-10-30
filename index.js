@@ -25,7 +25,7 @@ async function run() {
         // const destinationCollection = database.collection('destination');
 
         //GET API
-        app.get('/service', async (req, res) => {
+        app.get('/services', async (req, res) => {
             const cursor = offerCollection.find({});
             const offers = await cursor.toArray();
             res.send(offers);
@@ -33,22 +33,36 @@ async function run() {
 
         //GET THE DESTINATION  API 
         //  app.get("/destination", async (req, res) => {
-        //     const cursor = blogCollection.find({});
-        //     const services = await cursor.toArray();
+        //     const cursor = destinationCollection.find({});
+        //     const destination = await cursor.toArray();
         //     res.send(services);
         // });
 
         //Single Details
-        app.get('/service/:id', async (req, res) => {
+        app.get('/services/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id);
             const query = { _id: ObjectId(id) };
             const offers = await offerCollection.findOne(query)
             res.json(offers)
         })
-        // app.post('/service',async(req,res)={
 
-        // })
+        // POST THE API TO MONGO-DB
+        app.post('/services', async (req, res) => {
+            const service = req.body;
+            console.log('hit the post', service);
+            const result = await offerCollection.insertOne(service)
+            console.log(result);
+            res.send(result);
+        });
+        // DELET API
+        app.delete("/services/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await offerCollection.deleteOne(query);
+            console.log("deleting user id ", result);
+            res.json(result);
+        });
     }
     finally {
         // await client.close();

@@ -22,6 +22,7 @@ async function run() {
         // console.log('database connected');
         const database = client.db('ghurbo');
         const offerCollection = database.collection('offers');
+        // const destinationCollection = database.collection('destination');
 
         //GET API
         app.get('/service', async (req, res) => {
@@ -30,7 +31,14 @@ async function run() {
             res.send(offers);
         })
 
-        //Get api for single data
+        //GET THE DESTINATION  API 
+        //  app.get("/destination", async (req, res) => {
+        //     const cursor = blogCollection.find({});
+        //     const services = await cursor.toArray();
+        //     res.send(services);
+        // });
+
+        //Single Details
         app.get('/services/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id);

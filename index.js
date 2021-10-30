@@ -25,7 +25,7 @@ async function run() {
         // const destinationCollection = database.collection('destination');
 
         //GET API
-        app.get('/service', async (req, res) => {
+        app.get('/services', async (req, res) => {
             const cursor = offerCollection.find({});
             const offers = await cursor.toArray();
             res.send(offers);

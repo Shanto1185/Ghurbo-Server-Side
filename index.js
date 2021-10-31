@@ -22,7 +22,8 @@ async function run() {
         // console.log('database connected');
         const database = client.db('ghurbo');
         const offerCollection = database.collection('offers');
-        // const destinationCollection = database.collection('destination');
+        const exoticeCollection = database.collection('exotic');
+        const lastOffer = database.collection('lastOffer');
 
         //GET API
         app.get('/services', async (req, res) => {
@@ -31,12 +32,18 @@ async function run() {
             res.send(offers);
         })
 
-        //GET THE DESTINATION  API 
-        //  app.get("/destination", async (req, res) => {
-        //     const cursor = destinationCollection.find({});
-        //     const destination = await cursor.toArray();
-        //     res.send(services);
-        // });
+        //GET THE Exotic  API 
+        app.get("/exotic", async (req, res) => {
+            const cursor = exoticeCollection.find({});
+            const exotic = await cursor.toArray();
+            res.send(exotic);
+        });
+        //GET THE Last Offer  API 
+        app.get("/offers", async (req, res) => {
+            const cursor = lastOffer.find({});
+            const lastOffers = await cursor.toArray();
+            res.send(lastOffers);
+        });
 
         //Single Details
         app.get('/services/:id', async (req, res) => {

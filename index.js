@@ -24,6 +24,7 @@ async function run() {
         const offerCollection = database.collection('offers');
         const exoticeCollection = database.collection('exotic');
         const lastOffer = database.collection('lastOffer');
+        const orderCollection = database.collection('orders');
 
         //GET API
         app.get('/services', async (req, res) => {
@@ -62,6 +63,20 @@ async function run() {
             console.log(result);
             res.send(result);
         });
+
+        //POST the booking api
+        app.post('/orders', async (req, res) => {
+            const newBooking = req.body;
+            const result = await orderCollection.insertOne(newBooking);
+            res.json(result);
+        })
+
+        //Get Booking Api
+        app.get('/booking', async (req, res) => {
+            const cursor = orderCollection.find({});
+            const booking = await cursor.toArray();
+            res.send(booking);
+        })
         // DELET API
         app.delete("/services/:id", async (req, res) => {
             const id = req.params.id;

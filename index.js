@@ -33,20 +33,20 @@ async function run() {
             res.send(offers);
         })
 
-        //GET THE Exotic  API 
+        //GET THE EXOTIC  API 
         app.get("/exotic", async (req, res) => {
             const cursor = exoticeCollection.find({});
             const exotic = await cursor.toArray();
             res.send(exotic);
         });
-        //GET THE Last Offer  API 
+        //GET THE LAST OFFER  API 
         app.get("/offers", async (req, res) => {
             const cursor = lastOffer.find({});
             const lastOffers = await cursor.toArray();
             res.send(lastOffers);
         });
 
-        //Single Details
+        //SINGLE Details
         app.get('/services/:id', async (req, res) => {
             const id = req.params.id;
             console.log(id);
@@ -58,21 +58,19 @@ async function run() {
         // POST THE API TO MONGO-DB
         app.post('/services', async (req, res) => {
             const service = req.body;
-            console.log('hit the post', service);
             const result = await offerCollection.insertOne(service)
-            console.log(result);
-            res.send(result);
+            res.json(result);
         });
 
-        //POST the booking api
+        //POST THE BOOKING API
         app.post('/orders', async (req, res) => {
             const newBooking = req.body;
             const result = await orderCollection.insertOne(newBooking);
             res.json(result);
         })
 
-        //Get Booking Api
-        app.get('/booking', async (req, res) => {
+        //Get BOOKING API
+        app.get('/orders', async (req, res) => {
             const cursor = orderCollection.find({});
             const booking = await cursor.toArray();
             res.send(booking);
@@ -82,7 +80,6 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await offerCollection.deleteOne(query);
-            console.log("deleting user id ", result);
             res.json(result);
         });
     }
